@@ -7,3 +7,27 @@
         https://www.theodinproject.com/lessons/nodejs-file-uploader
 
 ## project notes
+
+- When installing prisma, the required packages are:
+
+        - prisma -> prisma client itself, allows CLI prisma commands
+
+        - @prisma/adapter-pg -> to connect prisma to postgreSQL database
+
+        - @prisma/client -> to interact with the database and send queries
+
+        - dotenv -> to load environment variables into prisma
+
+- node has automatic module detection. As long as I don't mix ES6 modules and commonJS, it should automatically detect which is which. Also, the "type" attribute in package.json is not required for this, so I will omit this from my future projects unless needed.
+
+- One problem I ran into was I was unable to run npx prisma migrate dev, but that was because I forgot to install the prisma library itself.
+
+- The main CLI prisma commands are:
+
+        npx prisma migrate dev --name init 
+            - This is to read the schema and apply changes to the database itself
+
+        npx prisma generate
+            - This is to generate a new client to interact with the database. Has basic CRUD methods.
+
+        - Now that the prisma schema is synced with the database and I generated a client, I have to explicitly create a prisma client. I would have to make a new file and export the client to use.
