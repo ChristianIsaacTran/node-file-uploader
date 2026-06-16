@@ -71,3 +71,6 @@
                 }
             }
         });
+
+- For simplicity and time, I am not going to code in the authentication check for the routes to prevent a non-authenticated user
+  from manually visiting other routes through url.
