@@ -13,14 +13,24 @@
       <li>Log into account successfully</li>
       <li>Save file with multer middleware (will learn as I go)</li>
     </ol>
+
+    <% if(!user) { %>
+        <% if(loginError) { %>
+            <%- include("./partials/loginError")%>
+        <% } %>
     <form action="/" method="post">
       <h1>Log in</h1>
       <label for="username">Username: </label>
       <input type="text" id="username" name="username"/>
       <label for="password">Password: </label>
-      <input type="text" id="password" name="password"/>
+      <input type="password" id="password" name="password" autocomplete="off"/>
       <button type="submit">Submit</button>
     </form>
+    <% } else{ %>
+        <h1>Welcome, <%= user.username %></h1>
+        <h3>You are now logged in. Able to upload files.</h3>
+        <a href="/logout" class="logout-link">Log out</a>
+    <% } %>
     <a href="/signup" class="signup-link">Sign up here!</a>
   </body>
 </html>

@@ -1,0 +1,10 @@
+<% if(loginError.length > 0) { %>
+    <div class="login-error-group">
+        <h1>Error: </h1>
+        <ul>
+            <% loginError.forEach((error) => { %>
+                <li><%= error %></li>
+           <% }) %>
+        </ul>
+    </div>
+<% } %>

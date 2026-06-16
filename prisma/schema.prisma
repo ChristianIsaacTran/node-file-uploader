@@ -18,7 +18,7 @@ model File {
 
 model User {
   id       Int    @id @default(autoincrement())
-  username String @db.VarChar(255)
+  username String @db.VarChar(255) @unique
   password String @db.VarChar()
 }
 

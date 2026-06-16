@@ -41,3 +41,33 @@
             import {prisma} from "path to prisma.js";
 
 - The universal hash salt amount for this project is 15 with bcryptjs
+
+- Assume that two or more users cannot have the same exact username in the database. Will probably add a check for that later.
+
+- I am going to ignore how slow the prisma ORM takes when running queries with the generated client. I just need to get this working properly.
+
+- When using the prisma client to query the database, the model/table
+  name is going to be lowercase since it follows the class-property naming
+  convention, where properties are lowercase and model names are starting
+  with uppercase.
+
+- Has an issue with prisma's .findUnique();, but in the documentation
+  since it is doing a search off of a unique field value, the where: option is supposed to contain a literal value rather than an object value. For example:
+
+        .findUnique({
+            where: {
+                id: uniqueId
+            }
+        });
+
+        but in something that does support filtering like .findFirst():
+
+        .findFirst({
+            where: {
+                id: {
+                    equals: uniqueId
+
+                    //other filtering options
+                }
+            }
+        });

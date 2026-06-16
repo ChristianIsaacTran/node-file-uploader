@@ -2,20 +2,36 @@ const { prisma } = require("./prisma");
 const bcrypt = require("bcryptjs");
 
 // returns user based on given database unique id from session
-async function getUserForDeserialize(id) {
-  const user = await prisma.User.findUnique({
-    where: { id: id },
+async function getUserForDeserialize(searchId) {
+
+    const intId = Number(searchId);
+    
+  const user = await prisma.user.findUnique({
+    where: { 
+        id: searchId
+    },
   });
 
   return user;
 }
 
-async function getUser(username) {}
+// returns the user based on their unique username
+async function getUser(username) {
+  const user = await prisma.user.findFirst({
+    where: {
+      username: {
+        equals: username,
+      },
+    },
+  });
+
+  return user;
+}
 
 async function insertUser(username, password) {
   const hashedPass = await bcrypt.hash(password, 15);
 
-  await prisma.User.create({
+  await prisma.user.create({
     data: {
       username: username,
       password: hashedPass,

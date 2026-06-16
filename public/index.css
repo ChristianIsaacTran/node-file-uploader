@@ -18,8 +18,11 @@ body {
   margin: 0;
 }
 
-.signup-link {
+.signup-link,
+.logout-link {
     font-size: 3rem;
+    max-width: 25%;
+    background-color: black;
 }
 
 body {
@@ -32,4 +35,10 @@ ol {
   display: flex;
   flex-direction: column;
   gap: 15px;  
+}
+
+.login-error-group {
+    display: flex;
+    flex-direction: column;
+    color: red;
 }
