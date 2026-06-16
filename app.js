@@ -3,6 +3,7 @@ const path = require("node:path");
 const sessionConfig = require("./config/sessionConfig");
 const passport = require("./config/passportConfig");
 const indexRouter = require("./routers/indexRouter");
+const signupRouter = require("./routers/signupRouter");
 
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(passport.session());
 
 // routes
 app.use("/", indexRouter);
+app.use("/signup", signupRouter);
 
 
 const port = process.env.PORT || 3000;

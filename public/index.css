@@ -1,0 +1,35 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.signup-link {
+    font-size: 3rem;
+}
+
+body {
+    display: flex; 
+    flex-direction: column;
+    gap: 15px;
+}
+
+ol {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;  
+}

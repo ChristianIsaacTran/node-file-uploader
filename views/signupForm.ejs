@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    <link rel="stylesheet" href="/signup.css">
+</head>
+<body>
+    <% if(err) { %>
+        <%- include("./partials/signupError") %>
+    <% } %>
+    <h1>Sign Up Form</h1>
+    <form action="/signup" method="post">
+        <label for="username">Username: </label>
+        <input type="text" name="username" id="username"  value="<%= prevInput ?`${prevInput.username}` : "" %>" >
+        <label for="password">Password: </label>
+        <input type="password" name="password" id="password" >
+        <label for="confirmPass">Confirm Password: </label>
+        <input type="password" name="confirmPass" id="confirmPass">
+        <button type="submit">Submit</button>
+    </form>
+    <a href="/">Back to home</a>
+</body>
+</html>

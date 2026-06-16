@@ -1,11 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
-</head>
-<body>
-    <h1>Welcome to the homepage!</h1>
-</body>
+    <link rel="stylesheet" href="/index.css">
+  </head>
+  <body>
+    <h1>File Uploader Steps:</h1>
+    <ol>
+      <li>Sign up and make an account for database</li>
+      <li>Log into account successfully</li>
+      <li>Save file with multer middleware (will learn as I go)</li>
+    </ol>
+    <form action="/" method="post">
+      <h1>Log in</h1>
+      <label for="username">Username: </label>
+      <input type="text" id="username" name="username"/>
+      <label for="password">Password: </label>
+      <input type="text" id="password" name="password"/>
+      <button type="submit">Submit</button>
+    </form>
+    <a href="/signup" class="signup-link">Sign up here!</a>
+  </body>
 </html>

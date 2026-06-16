@@ -15,3 +15,16 @@ datasource db {
 model File {
   id Int @id @default(autoincrement())
 }
+
+model User {
+  id       Int    @id @default(autoincrement())
+  username String @db.VarChar(255)
+  password String @db.VarChar()
+}
+
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String   
+  expiresAt DateTime
+}

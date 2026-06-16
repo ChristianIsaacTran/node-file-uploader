@@ -1,0 +1,9 @@
+a {
+    font-size: 2rem;
+}
+
+.error-group {
+    display: flex;
+    flex-direction: column;
+    color: red;
+}

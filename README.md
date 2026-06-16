@@ -24,10 +24,20 @@
 
 - The main CLI prisma commands are:
 
-        npx prisma migrate dev --name init 
+        npx prisma migrate dev --name init
             - This is to read the schema and apply changes to the database itself
 
         npx prisma generate
             - This is to generate a new client to interact with the database. Has basic CRUD methods.
 
         - Now that the prisma schema is synced with the database and I generated a client, I have to explicitly create a prisma client. I would have to make a new file and export the client to use.
+
+- I kept forgetting that when importing the prisma client that I made in models/prisma.js, I exported it inside an object {prisma}, so I need to destructure it first before it is usable. so the proper import is:
+
+            const {prisma} = require(path to prisma.js);
+
+            or
+
+            import {prisma} from "path to prisma.js";
+
+- The universal hash salt amount for this project is 15 with bcryptjs
