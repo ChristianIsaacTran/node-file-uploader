@@ -1,0 +1,11 @@
+.home-link {
+    font-size: 3rem;
+}
+
+.form-group {
+    display: flex; 
+    flex-direction: column;
+    font-size: 2rem;
+    width: 25%;
+    gap: 20px;
+}

@@ -74,3 +74,8 @@
 
 - For simplicity and time, I am not going to code in the authentication check for the routes to prevent a non-authenticated user
   from manually visiting other routes through url.
+
+- The multer library is to parse file fields from the form. The "file" field in the form is a different kind of form field data, so the 
+express "urlencoded()" cannot parse the file field, I need something like the multer middleware to help parse it. Different files 
+require different libraries to help parse files or a specific type of file, but in this case, multer is used with the form HTML attribute
+of "";

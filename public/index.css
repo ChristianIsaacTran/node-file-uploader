@@ -19,7 +19,8 @@ body {
 }
 
 .signup-link,
-.logout-link {
+.logout-link,
+.upload-link {
     font-size: 3rem;
     max-width: 25%;
     background-color: black;
