@@ -13,18 +13,32 @@ datasource db {
 }
 
 model File {
-  id Int @id @default(autoincrement())
+  id           Int     @id @default(autoincrement())
+  fileLocation String
+  fileFolder   Folders @relation(fields: [fileFolderId], references: [id])
+  fileFolderId Int //foreign key for relation (references the id in Folders table)
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  username String @db.VarChar(255) @unique
-  password String @db.VarChar()
+  id       Int       @id @default(autoincrement())
+  username String    @unique @db.VarChar(255)
+  password String    @db.VarChar()
+  folders  Folders[] //users can have many folders
+}
+
+// folders are associated with users with their user id
+model Folders {
+  id           Int    @id @default(autoincrement())
+  folderRoute  String
+  folderName   String @unique
+  folderUser   User   @relation(fields: [folderUserId], references: [id]) //each folder will have a unique user id to show folder ownership
+  folderUserId Int //foreign key for relation (references id from User table)
+  files File[] //folders can have many files
 }
 
 model Session {
   id        String   @id
   sid       String   @unique
-  data      String   
+  data      String
   expiresAt DateTime
 }

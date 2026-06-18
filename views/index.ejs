@@ -26,12 +26,14 @@
       <input type="password" id="password" name="password" autocomplete="off"/>
       <button type="submit">Submit</button>
     </form>
+    <a href="/signup" class="signup-link">Sign up here!</a>
     <% } else{ %>
         <h1>Welcome, <%= user.username %></h1>
         <h3>You are now logged in. Able to upload files.</h3>
+        <%- include("./partials/folderDisplay") %>
         <a href="/upload" class="upload-link">Upload a file here</a>
         <a href="/logout" class="logout-link">Log out</a>
     <% } %>
-    <a href="/signup" class="signup-link">Sign up here!</a>
+    
   </body>
 </html>
