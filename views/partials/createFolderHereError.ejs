@@ -6,3 +6,10 @@
        <% }) %>
     </ul>
 <% } %>
+
+<% if(nameExists) { %>
+    <h1>Error:</h1>
+    <ul>
+        <li>Folder name exists in current directory.</li>
+    </ul>
+<% } %>

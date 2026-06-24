@@ -128,9 +128,6 @@ async function getFolder(route, loggedInUserId) {
       },
     });
 
-    if (!currentFolder) {
-      throw new Error("folder not found in database.");
-    }
 
     return currentFolder;
   } catch (error) {
@@ -179,32 +176,35 @@ async function createFolder(currentRoute, folderName, userId, parentFolder) {
 
 // based on a given folderRoute, return an array of subfolders inside the current folder
 async function getSubFolders(currentRoute, loggedInUserId, currentFolder) {
-  console.log(currentRoute);
-
-  // sub-folders will be in the same folder as the currentRoute, up until their name
-  const subFolders = await prisma.folders.findMany({
-    where: {
-      AND: [
-        {
+  try {
+    // sub-folders will be in the same folder as the currentRoute, up until their name
+    const subFolders = await prisma.folders.findMany({
+      where: {
+        AND: [
+          {
+            folderRoute: {
+              startsWith: currentRoute,
+              endsWith: "/",
+              mode: "insensitive",
+            },
+          },
+          { folderUserId: { equals: loggedInUserId } },
+          { parentFolder: { equals: currentFolder } },
+        ],
+        NOT: {
           folderRoute: {
-            startsWith: currentRoute,
-            endsWith: "/",
-            mode: "insensitive",
+            equals: currentRoute,
           },
         },
-        { folderUserId: { equals: loggedInUserId } },
-        { parentFolder: { equals: currentFolder } },
-      ],
-      NOT: {
-        folderRoute: {
-          equals: currentRoute,
-        },
       },
-    },
-  });
+    });
 
-  return subFolders;
+    return subFolders;
+  } catch (error) {
+    throw new Error(error);
+  }
 }
+
 
 module.exports = {
   getUser,
