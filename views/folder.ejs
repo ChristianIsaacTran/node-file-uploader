@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= currentRoute %></title>
+    <link rel="stylesheet" href="/folder.css">
 </head>
 <body>
     <% if(files.length === 0) { %>
@@ -12,9 +13,11 @@
         <h1>Temp files goes here</h1>
     <% } %>
     <% if(subFolders) { %>
+        <div  class="subfolder-group">
         <% subFolders.forEach((folder) => { %>
             <a href="/folder/<%= folder.folderRoute %>"><%= folder.folderName %></a>
         <% }) %>
+        </div>
     <% } %>
     <div class="link-group">
         <a href="/folder/<%= previousRoute %>">Back to previous folder</a>

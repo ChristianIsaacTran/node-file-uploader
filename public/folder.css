@@ -1,0 +1,11 @@
+.link-group {
+    display: flex;
+    flex-direction: column;
+    background-color: yellow;
+}
+
+.subfolder-group {
+    display:flex;
+    flex-direction: column;
+    background-color: red;
+}

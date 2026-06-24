@@ -3,3 +3,8 @@
     background-color: yellow;
     max-width: 100%;
 }
+
+.root-folder {
+    font-size: 3rem;
+    background-color: grey;
+}

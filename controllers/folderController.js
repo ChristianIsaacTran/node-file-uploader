@@ -2,8 +2,6 @@ const db = require("../models/dbQuery");
 
 // checks to see if user has a root folder or not. if not, create one. if yes, display folder link.
 async function createRootFolder(req, res) {
-  console.log("USER: ");
-  console.log(req.user);
   const rootFolder = await db.checkRootFolderExists(req.user.id);
 
   res.redirect("/");

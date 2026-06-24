@@ -4,7 +4,7 @@
 <div>
     <h1>Folder Display Here:</h1>
     <% if(rootFolder) { %>
-        <a href="/folder/<%=rootFolder.folderRoute%>"><%= rootFolder.folderName %>/</a>
+        <a class="root-folder" href="/folder/<%=rootFolder.folderRoute%>"><%= rootFolder.folderName %>/</a>
     <% } else {%>
         <a href="/folder" class="create-folder-link">Create Root Folder</a>
     <% } %>
