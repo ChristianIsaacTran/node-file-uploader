@@ -1,0 +1,8 @@
+<% if(folderErrArr){ %>
+    <h1>Error:</h1>
+    <ul>
+        <% folderErrArr.forEach((error) => { %>
+            <li><%= error.msg %></li>
+       <% }) %>
+    </ul>
+<% } %>

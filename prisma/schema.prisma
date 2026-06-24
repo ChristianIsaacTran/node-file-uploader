@@ -30,10 +30,11 @@ model User {
 model Folders {
   id           Int    @id @default(autoincrement())
   folderRoute  String
-  folderName   String @unique
+  folderName   String 
   folderUser   User   @relation(fields: [folderUserId], references: [id]) //each folder will have a unique user id to show folder ownership
   folderUserId Int //foreign key for relation (references id from User table)
-  files File[] //folders can have many files
+  files        File[] //folders can have many files
+  parentFolder String 
 }
 
 model Session {

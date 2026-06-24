@@ -35,6 +35,7 @@ async function getUser(username) {
   }
 }
 
+// insert newly crated user into the db
 async function insertUser(username, password) {
   try {
     const hashedPass = await bcrypt.hash(password, 15);
@@ -55,6 +56,10 @@ async function insertUser(username, password) {
 // creates a new root folder inside the Folders table
 async function createRootFolder(userId) {
   try {
+    if (!userId) {
+      throw new Error("User id does not exist");
+    }
+
     await prisma.folders.create({
       data: {
         folderRoute: "root/",
@@ -64,6 +69,7 @@ async function createRootFolder(userId) {
             id: userId,
           },
         },
+        parentFolder: "",
       },
     });
   } catch (error) {
@@ -104,14 +110,21 @@ async function checkRootFolderExists(userId) {
   }
 }
 
-// searches the db and gets the folder based on the given folder route
-async function getFolder(route) {
+// searches the db and gets the folder based on the given folder route, and current logged in user
+async function getFolder(route, loggedInUserId) {
   try {
     const currentFolder = await prisma.folders.findFirst({
       where: {
-        folderRoute: {
-          equals: route,
-        },
+        AND: [
+          {
+            folderRoute: {
+              equals: route,
+            },
+          },
+          {
+            folderUserId: { equals: loggedInUserId },
+          },
+        ],
       },
     });
 
@@ -146,11 +159,60 @@ async function getFiles(folderId) {
   }
 }
 
+// create a new folder in db with given route and folder name
+async function createFolder(currentRoute, folderName, userId, parentFolder) {
+  try {
+    await prisma.folders.create({
+      data: {
+        folderRoute: `${currentRoute}${folderName}/`,
+        folderName: folderName,
+        folderUserId: userId,
+        parentFolder: parentFolder,
+      },
+    });
+
+    return console.log("Created new folder.");
+  } catch (error) {
+    throw new Error("Cannot create folder");
+  }
+}
+
+// based on a given folderRoute, return an array of subfolders inside the current folder
+async function getSubFolders(currentRoute, loggedInUserId, currentFolder) {
+  console.log(currentRoute);
+
+  // sub-folders will be in the same folder as the currentRoute, up until their name
+  const subFolders = await prisma.folders.findMany({
+    where: {
+      AND: [
+        {
+          folderRoute: {
+            startsWith: currentRoute,
+            endsWith: "/",
+            mode: "insensitive",
+          },
+        },
+        { folderUserId: { equals: loggedInUserId } },
+        { parentFolder: { equals: currentFolder } },
+      ],
+      NOT: {
+        folderRoute: {
+          equals: currentRoute,
+        },
+      },
+    },
+  });
+
+  return subFolders;
+}
+
 module.exports = {
   getUser,
   getUserForDeserialize,
   insertUser,
   checkRootFolderExists,
   getFolder,
-  getFiles
+  getFiles,
+  createFolder,
+  getSubFolders,
 };

@@ -2,26 +2,28 @@ const db = require("../models/dbQuery");
 
 // checks to see if user has a root folder or not. if not, create one. if yes, display folder link.
 async function createRootFolder(req, res) {
-    console.log(req.user);
-    const rootFolder = await db.checkRootFolderExists(req.user.id);
+  console.log("USER: ");
+  console.log(req.user);
+  const rootFolder = await db.checkRootFolderExists(req.user.id);
 
-    res.redirect("/");
+  res.redirect("/");
 }
 
 // get the contents of the current folder route
 async function dynamicFolderDisplay(req, res) {
-    let currentRoute = req.params.filepath;
-    currentRoute = currentRoute.join("/");
-    console.log(currentRoute);
-    const currentFolder = await db.getFolder(currentRoute);
-    console.log("CURRENT FOLDER INSIDE DISPLAY");
-    console.log(currentFolder);
+  let currentRoute = req.params.filepath;  
+  currentRoute = currentRoute.join("/");
+  const currentFolder = await db.getFolder(currentRoute, req.user.id);
 
-    const files = await db.getFiles(currentFolder.id);
+  const files = await db.getFiles(currentFolder.id);
 
-    console.log(files);
+  const subFolders = await db.getSubFolders(currentRoute, req.user.id, currentFolder.folderName);
 
-    res.render("folder", {files: files, currentRoute: currentRoute});
+  res.render("folder", {
+    files: files,
+    currentRoute: currentRoute,
+    subFolders: subFolders,
+  });
 }
 
-module.exports = {createRootFolder, dynamicFolderDisplay}
+module.exports = { createRootFolder, dynamicFolderDisplay };

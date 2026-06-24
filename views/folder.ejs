@@ -8,9 +8,17 @@
 <body>
     <% if(files.length === 0) { %>
         <h1>No files found</h1>
-   <% } else {%>
+   <% } else { %>
         <h1>Temp files goes here</h1>
     <% } %>
-    <a href="/">Back to home</a>
+    <% if(subFolders) { %>
+        <% subFolders.forEach((folder) => { %>
+            <a href="/folder/<%= folder.folderRoute %>"><%= folder.folderName %></a>
+        <% }) %>
+    <% } %>
+    <div class="link-group">
+        <a href="/create/<%= currentRoute %>">Create a folder here</a>
+        <a href="/">Back to home</a>
+    </div>
 </body>
 </html>

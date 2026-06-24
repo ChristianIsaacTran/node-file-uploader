@@ -7,6 +7,7 @@ const signupRouter = require("./routers/signupRouter");
 const logoutRouter = require("./routers/logoutRouter");
 const uploadRouter = require("./routers/uploadRouter");
 const folderRouter = require("./routers/folderRouter");
+const createFolderRouter = require("./routers/createFolderRouter");
 
 
 const app = express();
@@ -27,6 +28,7 @@ app.use("/signup", signupRouter);
 app.use("/logout", logoutRouter);
 app.use("/upload", uploadRouter);
 app.use("/folder", folderRouter);
+app.use("/create", createFolderRouter);
 
 
 const port = process.env.PORT || 3000;

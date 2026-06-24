@@ -6,7 +6,7 @@ async function renderHome(req, res) {
 
   if (req.user) {
     //if user is logged in, get root folder from db
-    rootFolder = await db.checkRootFolderExists();
+    rootFolder = await db.checkRootFolderExists(req.user.id);
   }
 
   res.render("index", {
