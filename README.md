@@ -81,3 +81,5 @@ require different libraries to help parse files or a specific type of file, but 
 of "enctype="
 
 - For the folders functionality, I'll try to let users create folders in terms of routes, but dynamic route creation is something I have to research.
+
+- Need to work on deleting folders and updating folder names
