@@ -11,7 +11,10 @@ async function createRootFolder(req, res) {
 
 // get the contents of the current folder route
 async function dynamicFolderDisplay(req, res) {
-  let currentRoute = req.params.filepath;  
+  let currentRoute = req.params.filepath; 
+
+  const previousRoute = `${currentRoute.slice(0, -2).join("/")}/`;
+  
   currentRoute = currentRoute.join("/");
   const currentFolder = await db.getFolder(currentRoute, req.user.id);
 
@@ -23,6 +26,7 @@ async function dynamicFolderDisplay(req, res) {
     files: files,
     currentRoute: currentRoute,
     subFolders: subFolders,
+    previousRoute: previousRoute,
   });
 }
 
