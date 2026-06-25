@@ -128,7 +128,6 @@ async function getFolder(route, loggedInUserId) {
       },
     });
 
-
     return currentFolder;
   } catch (error) {
     throw new Error(error);
@@ -205,6 +204,34 @@ async function getSubFolders(currentRoute, loggedInUserId, currentFolder) {
   }
 }
 
+// deletes a folder from the database based on the folder's unique route
+async function deleteFolder(pathToFolder, nameOfFolder) {
+  await prisma.folders.deleteMany({
+    where: {
+      OR: [
+        {
+          folderRoute: {
+            equals: pathToFolder,
+          },
+        },
+        {
+          folderRoute: { // This deletes any nested folders inside the deleted folder
+            startsWith: pathToFolder
+          },
+        },
+        {
+          parentFolder: {
+            equals: nameOfFolder,
+          },
+        },
+      ],
+    },
+  });
+
+  // when deleting a folder, it will also delete the files inside that folder.
+
+  return console.log("Folder has been deleted.");
+}
 
 module.exports = {
   getUser,
@@ -215,4 +242,5 @@ module.exports = {
   getFiles,
   createFolder,
   getSubFolders,
+  deleteFolder,
 };
