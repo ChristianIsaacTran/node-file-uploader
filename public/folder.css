@@ -2,10 +2,35 @@
     display: flex;
     flex-direction: column;
     background-color: yellow;
+    gap: 5px;
+    max-width: 50%;
 }
 
 .subfolder-group {
     display:flex;
     flex-direction: column;
     background-color: red;
+    max-width: 50%;
+}
+
+.folder-options-group {
+    display: grid;
+    text-align: center;
+    grid-template-areas: 
+    "folder update delete";
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 2px green solid;
+}
+
+.folder-link {
+    background-color:coral;
+}
+
+.update-link,
+.delete-link {
+    background-color: black;
+    color: white;
+    border: 2px white dotted;
 }

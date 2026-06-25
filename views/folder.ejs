@@ -7,22 +7,29 @@
     <link rel="stylesheet" href="/folder.css">
 </head>
 <body>
+    <h1>Options:</h1>
+    <div class="link-group">
+        <a href="/folder/<%= previousRoute %>">Back to previous folder</a>
+        <a href="/create/<%= currentRoute %>">Create a folder here</a>
+        <a href="/">Back to home</a>
+    </div>
+    <h1>Files: </h1>
     <% if(files.length === 0) { %>
         <h1>No files found</h1>
    <% } else { %>
         <h1>Temp files goes here</h1>
     <% } %>
     <% if(subFolders) { %>
+        <h1>Sub-folders: </h1>
         <div  class="subfolder-group">
         <% subFolders.forEach((folder) => { %>
-            <a href="/folder/<%= folder.folderRoute %>"><%= folder.folderName %></a>
+            <div class="folder-options-group">
+                <a class="folder-link" href="/folder/<%= folder.folderRoute %>"><%= folder.folderName %></a> 
+                <a class="update-link" href="">Update</a>
+                <a class="delete-link" href="">Delete</a>  
+            </div>
         <% }) %>
         </div>
     <% } %>
-    <div class="link-group">
-        <a href="/folder/<%= previousRoute %>">Back to previous folder</a>
-        <a href="/create/<%= currentRoute %>">Create a folder here</a>
-        <a href="/">Back to home</a>
-    </div>
 </body>
 </html>
