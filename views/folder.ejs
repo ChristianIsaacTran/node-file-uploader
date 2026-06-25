@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="/folder.css">
 </head>
 <body>
+    <h1>Current Folder: <%= currentFolderName %></h1>
+    <h4>Current Filepath: <%= currentRoute %></h4>
     <h1>Options:</h1>
     <div class="link-group">
         <a href="/folder/<%= previousRoute %>">Back to previous folder</a>
@@ -19,8 +21,8 @@
    <% } else { %>
         <h1>Temp files goes here</h1>
     <% } %>
+    <h1>Sub-folders: </h1>
     <% if(subFolders.length !== 0) { %>
-        <h1>Sub-folders: </h1>
         <div  class="subfolder-group">
         <% subFolders.forEach((folder) => { %>
             <div class="folder-options-group">
