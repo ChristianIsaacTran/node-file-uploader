@@ -27,7 +27,7 @@
         <% subFolders.forEach((folder) => { %>
             <div class="folder-options-group">
                 <a class="folder-link" href="/folder/<%= folder.folderRoute %>"><%= folder.folderName %></a> 
-                <a class="update-link" href="">Update</a>
+                <a class="update-link" href="/update/<%= folder.folderRoute %>?folderName=<%= folder.folderName %>&currentRoute=<%= currentRoute %>">Update</a>
                 <a class="delete-link" href="/delete/<%= folder.folderRoute %>?folderName=<%= folder.folderName %>&currentRoute=<%= currentRoute %>" onclick="return confirm('Are you sure? This will delete the folder and all of it\'s contents.')">Delete</a>  
             </div>
         <% }) %>

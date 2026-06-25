@@ -23,7 +23,7 @@ model User {
   id       Int       @id @default(autoincrement())
   username String    @unique @db.VarChar(255)
   password String    @db.VarChar()
-  folders  Folders[] //users can have many folders
+  folders  Folders[] //users can have many folders, scalar field to define relation with Folders
 }
 
 // folders are associated with users with their user id
