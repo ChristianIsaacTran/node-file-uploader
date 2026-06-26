@@ -4,4 +4,6 @@ const updateFolderRouter = Router();
 
 updateFolderRouter.get("/{*filepath}", updateFolderController.renderUpdateFolderForm);
 
+updateFolderRouter.post("/{*filepath}", updateFolderController.postUpdateForm);
+
 module.exports = updateFolderRouter;

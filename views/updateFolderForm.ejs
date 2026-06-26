@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Update Folder</title>
-    <link rel="stylesheet" href="">
-</head>
-<body>
-    <h1>Updating current folder: <%= updateFolderName  %> </h1>
-    <h3>Updating folder name will change route name for all files: </h3>
+    <link rel="stylesheet" href="" />
+  </head>
+  <body>
+    <h1>Updating current folder: <%= updateFolderName %></h1>
+    <h3>Updating folder name will change route name for all files:</h3>
     <h3><%= fullRoute %></h3>
-    <form action="" method="post">
-        <label for="">New folder name: </label>
-        <input type="text" placeholder="<%= updateFolderName %>">
-        <button type="submit">Submit</button>
+    <form action="/update/<%= currentRoute %>?fullFilePath=<%= fullRoute %>&previousFolderName=<%= updateFolderName %>" method="post">
+      <label for="newFolderName">New folder name: </label>
+      <input
+        type="text"
+        placeholder="<%= updateFolderName %>"
+        name="newFolderName"
+        id="newFolderName"
+      />
+      <button type="submit">Submit</button>
     </form>
     <a href="/folder/<%= currentRoute %>">Cancel update folder request</a>
-</body>
+  </body>
 </html>

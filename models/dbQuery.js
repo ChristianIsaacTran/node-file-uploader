@@ -215,8 +215,9 @@ async function deleteFolder(pathToFolder, nameOfFolder) {
           },
         },
         {
-          folderRoute: { // This deletes any nested folders inside the deleted folder
-            startsWith: pathToFolder
+          folderRoute: {
+            // This deletes any nested folders inside the deleted folder
+            startsWith: pathToFolder,
           },
         },
         {
@@ -233,6 +234,102 @@ async function deleteFolder(pathToFolder, nameOfFolder) {
   return console.log("Folder has been deleted.");
 }
 
+// search and update any folder with the new name
+async function updateFolderName(
+  currentRoute,
+  fullRoute,
+  previousFolderName,
+  newFolderName,
+) {
+  const newRoute = `${currentRoute}${newFolderName}/`; //new Route to update in db
+
+  console.log("Updating name on folder...");
+
+  // update main folder with new name and folder route with new route
+
+  const mainFolder = await prisma.folders.updateMany({
+    where: {
+      AND: [
+        {
+          folderRoute: fullRoute,
+        },
+        {
+          folderName: previousFolderName,
+        },
+      ],
+    },
+    data: {
+      folderRoute: newRoute,
+      folderName: newFolderName,
+    },
+  });
+
+  console.log("Updating name on nested folders...");
+
+  // get all the folders with the current folder's route in it for loop update
+  let folders = await prisma.folders.findMany({
+    where: {
+      OR: [
+        {
+          folderRoute: {
+            // This deletes any nested folders inside the deleted folder
+            startsWith: fullRoute,
+          },
+        },
+        {
+          parentFolder: {
+            equals: previousFolderName,
+          },
+        },
+      ],
+    },
+  });
+
+  // for each folder, update the sub folder's route info
+  folders.forEach(async (folderObj) => {
+    // construct new route to replace old route
+    const oldRoute = folderObj.folderRoute.split("/");
+
+    // index of the folder name to be replaced
+    const replaceFolderIndex = fullRoute.split("/").length - 2;
+
+    oldRoute[replaceFolderIndex] = newFolderName;
+
+    const newRoute = oldRoute.join("/");
+
+    // update reoutes and nested routes with the new folder name
+    await prisma.folders.updateMany({
+      where: {
+        AND: [
+          {
+            folderName: folderObj.folderName,
+          },
+          {
+            folderRoute: {
+              startsWith: fullRoute,
+            },
+          },
+        ],
+      },
+      data: {
+        folderRoute: newRoute,
+      },
+    });
+
+    // update all folders that had previous folder name as parent folder
+    await prisma.folders.updateMany({
+      where: {
+        parentFolder: previousFolderName,
+      },
+      data: {
+        parentFolder: newFolderName,
+      },
+    });
+  });
+
+  return console.log("update folder complete.");
+}
+
 module.exports = {
   getUser,
   getUserForDeserialize,
@@ -243,4 +340,5 @@ module.exports = {
   createFolder,
   getSubFolders,
   deleteFolder,
+  updateFolderName,
 };
