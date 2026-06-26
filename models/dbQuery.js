@@ -272,7 +272,6 @@ async function updateFolderName(
       OR: [
         {
           folderRoute: {
-            // This deletes any nested folders inside the deleted folder
             startsWith: fullRoute,
           },
         },
@@ -297,7 +296,24 @@ async function updateFolderName(
 
     const newRoute = oldRoute.join("/");
 
-    // update reoutes and nested routes with the new folder name
+    // update all folders that had previous folder name as parent folder
+    await prisma.folders.updateMany({
+      where: {
+        AND: [
+          { parentFolder: previousFolderName },
+          {
+            folderRoute: {
+              startsWith: fullRoute,
+            },
+          },
+        ],
+      },
+      data: {
+        parentFolder: newFolderName,
+      },
+    });
+
+    // update routes and nested routes with the new folder name
     await prisma.folders.updateMany({
       where: {
         AND: [
@@ -313,16 +329,6 @@ async function updateFolderName(
       },
       data: {
         folderRoute: newRoute,
-      },
-    });
-
-    // update all folders that had previous folder name as parent folder
-    await prisma.folders.updateMany({
-      where: {
-        parentFolder: previousFolderName,
-      },
-      data: {
-        parentFolder: newFolderName,
       },
     });
   });

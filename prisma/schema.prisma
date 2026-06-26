@@ -28,13 +28,15 @@ model User {
 
 // folders are associated with users with their user id
 model Folders {
-  id           Int    @id @default(autoincrement())
-  folderRoute  String
-  folderName   String 
-  folderUser   User   @relation(fields: [folderUserId], references: [id]) //each folder will have a unique user id to show folder ownership
-  folderUserId Int //foreign key for relation (references id from User table)
-  files        File[] //folders can have many files
-  parentFolder String 
+  id             Int     @id @default(autoincrement())
+  folderRoute    String
+  folderName     String
+  folderUser     User    @relation(fields: [folderUserId], references: [id]) //each folder will have a unique user id to show folder ownership
+  folderUserId   Int //foreign key for relation (references id from User table)
+  files          File[] //folders can have many files
+  parentFolderId Int //foreign key, references Folders id
+  parentFolder   Folders @relation("parentFolderRelation", fields: [parentFolderId], references: [id])
+  subFolders Folders[] @relation("parentFolderRelation")
 }
 
 model Session {
