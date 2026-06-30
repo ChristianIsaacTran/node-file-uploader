@@ -71,7 +71,6 @@ async function createRootFolder(userId) {
         },
       },
     });
-
   } catch (error) {
     throw new Error(error);
   }
@@ -176,9 +175,6 @@ async function createFolder(currentRoute, folderName, userId, parentFolderId) {
 // based on a given folderRoute, return an array of subfolders inside the current folder
 async function getSubFolders(currentRoute, loggedInUserId, currentFolderId) {
   try {
-
-
-
     // sub-folders will be in the same folder as the currentRoute, up until their name
     const subFolders = await prisma.folders.findMany({
       where: {
@@ -243,7 +239,7 @@ async function updateFolderName(
   fullRoute,
   previousFolderName,
   newFolderName,
-  folderToUpdateId
+  folderToUpdateId,
 ) {
   const newRoute = `${currentRoute}${newFolderName}/`; //new Route to update in db
 
