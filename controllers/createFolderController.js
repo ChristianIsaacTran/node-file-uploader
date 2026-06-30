@@ -50,7 +50,7 @@ const createFolderHere = [
     // express-validator check
     if (!result.isEmpty()) {
       return res.status(400).render("createFolderHereForm", {
-        currentRoute: `${parentFolder.folderName}/`,
+        currentRoute: `${currentRoute}`,
         folderErrArr: result.array(),
         nameExists: false
       });
@@ -59,7 +59,7 @@ const createFolderHere = [
     // folder name exists in same directory error check
     if(folderExists) {
         return res.status(400).render("createFolderHereForm", {
-        currentRoute: `${parentFolder.folderName}/`,
+        currentRoute: `${currentRoute}`,
         folderErrArr: null,
         nameExists: true
       });

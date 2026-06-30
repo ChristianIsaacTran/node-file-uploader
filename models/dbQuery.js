@@ -243,6 +243,7 @@ async function updateFolderName(
   fullRoute,
   previousFolderName,
   newFolderName,
+  folderToUpdateId
 ) {
   const newRoute = `${currentRoute}${newFolderName}/`; //new Route to update in db
 
@@ -279,8 +280,8 @@ async function updateFolderName(
           },
         },
         {
-          parentFolder: {
-            equals: previousFolderName,
+          parentFolderId: {
+            equals: folderToUpdateId,
           },
         },
       ],
@@ -298,23 +299,6 @@ async function updateFolderName(
     oldRoute[replaceFolderIndex] = newFolderName;
 
     const newRoute = oldRoute.join("/");
-
-    // update all folders that had previous folder name as parent folder
-    await prisma.folders.updateMany({
-      where: {
-        AND: [
-          { parentFolder: previousFolderName },
-          {
-            folderRoute: {
-              startsWith: fullRoute,
-            },
-          },
-        ],
-      },
-      data: {
-        parentFolder: newFolderName,
-      },
-    });
 
     // update routes and nested routes with the new folder name
     await prisma.folders.updateMany({

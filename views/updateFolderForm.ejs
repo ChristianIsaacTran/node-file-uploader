@@ -10,6 +10,7 @@
     <h1>Updating current folder: <%= updateFolderName %></h1>
     <h3>Updating folder name will change route name for all files:</h3>
     <h3><%= fullRoute %></h3>
+    <%- include("./partials/updateFolderFormError") %>
     <form action="/update/<%= currentRoute %>?fullFilePath=<%= fullRoute %>&previousFolderName=<%= updateFolderName %>" method="post">
       <label for="newFolderName">New folder name: </label>
       <input
