@@ -21,7 +21,7 @@ async function dynamicFolderDisplay(req, res) {
   const subFolders = await db.getSubFolders(
     currentRoute,
     req.user.id,
-    currentFolder.folderName,
+    currentFolder.id,
   );
 
   res.render("folder", {

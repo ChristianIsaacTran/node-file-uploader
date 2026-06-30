@@ -28,10 +28,10 @@ const createFolderHere = [
   async (req, res) => {
     let currentRoute = req.params.filepath;
 
-    // get the previous folder to track current working directory
-    const parentFolder = currentRoute[currentRoute.length - 2];
-
     currentRoute = currentRoute.join("/");
+
+    // get the parent folder's id and make it the parent folder id for new folder
+    const parentFolder = await db.getFolder(currentRoute, req.user.id);
 
     const result = validationResult(req);
 
@@ -50,7 +50,7 @@ const createFolderHere = [
     // express-validator check
     if (!result.isEmpty()) {
       return res.status(400).render("createFolderHereForm", {
-        currentRoute: `${parentFolder}/`,
+        currentRoute: `${parentFolder.folderName}/`,
         folderErrArr: result.array(),
         nameExists: false
       });
@@ -59,7 +59,7 @@ const createFolderHere = [
     // folder name exists in same directory error check
     if(folderExists) {
         return res.status(400).render("createFolderHereForm", {
-        currentRoute: `${parentFolder}/`,
+        currentRoute: `${parentFolder.folderName}/`,
         folderErrArr: null,
         nameExists: true
       });
@@ -71,7 +71,7 @@ const createFolderHere = [
       currentRoute,
       data.folderName,
       req.user.id,
-      parentFolder,
+      parentFolder.id,
     );
 
     res.redirect(`/folder/${currentRoute}`);

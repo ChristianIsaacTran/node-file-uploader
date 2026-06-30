@@ -69,9 +69,9 @@ async function createRootFolder(userId) {
             id: userId,
           },
         },
-        parentFolder: "",
       },
     });
+
   } catch (error) {
     throw new Error(error);
   }
@@ -156,26 +156,29 @@ async function getFiles(folderId) {
 }
 
 // create a new folder in db with given route and folder name
-async function createFolder(currentRoute, folderName, userId, parentFolder) {
+async function createFolder(currentRoute, folderName, userId, parentFolderId) {
   try {
     await prisma.folders.create({
       data: {
         folderRoute: `${currentRoute}${folderName}/`,
         folderName: folderName,
         folderUserId: userId,
-        parentFolder: parentFolder,
+        parentFolderId: parentFolderId,
       },
     });
 
     return console.log("Created new folder.");
   } catch (error) {
-    throw new Error("Cannot create folder");
+    throw new Error(error);
   }
 }
 
 // based on a given folderRoute, return an array of subfolders inside the current folder
-async function getSubFolders(currentRoute, loggedInUserId, currentFolder) {
+async function getSubFolders(currentRoute, loggedInUserId, currentFolderId) {
   try {
+
+
+
     // sub-folders will be in the same folder as the currentRoute, up until their name
     const subFolders = await prisma.folders.findMany({
       where: {
@@ -188,7 +191,7 @@ async function getSubFolders(currentRoute, loggedInUserId, currentFolder) {
             },
           },
           { folderUserId: { equals: loggedInUserId } },
-          { parentFolder: { equals: currentFolder } },
+          { parentFolderId: { equals: currentFolderId } },
         ],
         NOT: {
           folderRoute: {
@@ -205,7 +208,7 @@ async function getSubFolders(currentRoute, loggedInUserId, currentFolder) {
 }
 
 // deletes a folder from the database based on the folder's unique route
-async function deleteFolder(pathToFolder, nameOfFolder) {
+async function deleteFolder(pathToFolder, folderToDeleteId) {
   await prisma.folders.deleteMany({
     where: {
       OR: [
@@ -221,8 +224,8 @@ async function deleteFolder(pathToFolder, nameOfFolder) {
           },
         },
         {
-          parentFolder: {
-            equals: nameOfFolder,
+          parentFolderId: {
+            equals: folderToDeleteId,
           },
         },
       ],
