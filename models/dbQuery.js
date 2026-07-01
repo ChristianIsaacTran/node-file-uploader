@@ -326,19 +326,47 @@ async function createUpload(fileData, currentRoute, loggedInUserId) {
     const currentFolder = await getFolder(currentRoute, loggedInUserId);
 
     // construct file location in local filesystem for now
-    console.log(fileData);
     const filePath = fileData.path;
+
+    // add a datetime to upload
+    const uploadDate = new Date().toISOString();
 
     // create new File record in file model
     await prisma.file.create({
       data: {
         fileLocation: filePath,
-        fileFolderId: currentFolder.id
+        fileFolderId: currentFolder.id,
+        fileName: fileData.originalname,
+        fileType: fileData.mimetype,
+        fileLocalDest: fileData.destination,
+        fileSize: fileData.size,
+        fileByteName: fileData.filename,
+        fileUploadTime: uploadDate,
       },
     });
 
     return console.log("File path added to db");
-    
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+// this is to get a single file and return it based on the file id in database
+async function getFile(fileId) {
+  try {
+    // convert fileId to Int value, then search for file for file info
+    const file = await prisma.file.findUnique({
+      where: {
+        id: parseInt(fileId),
+      },
+      include: {
+        fileFolder: true
+      }
+    });
+
+    console.log("Found file in db.");
+
+    return file;
   } catch (error) {
     throw new Error(error);
   }
@@ -356,4 +384,5 @@ module.exports = {
   deleteFolder,
   updateFolderName,
   createUpload,
+  getFile,
 };

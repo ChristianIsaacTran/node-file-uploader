@@ -10,6 +10,7 @@ const folderRouter = require("./routers/folderRouter");
 const createFolderRouter = require("./routers/createFolderRouter");
 const deleteFolderRouter = require("./routers/deleteFolderRouter");
 const updateFolderRouter = require("./routers/updateFolderRouter");
+const viewFileRouter = require("./routers/viewFileRouter");
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use("/folder", folderRouter);
 app.use("/create", createFolderRouter);
 app.use("/delete", deleteFolderRouter);
 app.use("/update", updateFolderRouter);
+app.use("/view", viewFileRouter);
 
 const port = process.env.PORT || 3000;
 

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= file.fileName %></title>
+    <link rel="stylesheet" href="/viewFile.css" />
+  </head>
+  <body>
+    <h1>Viewing Folder: <%= file.fileName %></h1>
+    <h2 class="info-title">Info:</h2>
+    <div class="file-info-group">
+      <h2>File type: <%= file.fileType %></h2>
+      <h2>Size (in bytes): <%= file.fileSize %></h2>
+      <h2>Upload date: <%= file.fileUploadTime %></h2>
+      <h2>File name: <%= file.fileName %></h2>
+      <h2>
+        Multer file name (after multer randomizes filename): <%=
+        file.fileByteName %>
+      </h2>
+      <h2>Local filesystem location: <%= file.fileLocalDest %></h2>
+      <h2>Full filesystem location: <%= file.fileLocation %></h2>
+      <h2>Folder Stored: <%= file.fileFolder.folderName %>/</h2>
+    </div>
+    <a href="/folder/<%= currentRoute %>">Back to folders</a>
+  </body>
+</html>

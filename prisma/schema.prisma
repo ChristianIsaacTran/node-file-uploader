@@ -13,10 +13,16 @@ datasource db {
 }
 
 model File {
-  id           Int     @id @default(autoincrement())
-  fileLocation String
-  fileFolder   Folders @relation(fields: [fileFolderId], references: [id])
-  fileFolderId Int //foreign key for relation (references the id in Folders table)
+  id             Int      @id @default(autoincrement())
+  fileLocation   String
+  fileFolder     Folders  @relation(fields: [fileFolderId], references: [id])
+  fileFolderId   Int //foreign key for relation (references the id in Folders table)
+  fileName       String
+  fileType       String
+  fileLocalDest  String
+  fileSize       Int
+  fileByteName   String
+  fileUploadTime DateTime
 }
 
 model User {
@@ -28,14 +34,14 @@ model User {
 
 // folders are associated with users with their user id
 model Folders {
-  id             Int      @id @default(autoincrement())
+  id             Int       @id @default(autoincrement())
   folderRoute    String
   folderName     String
-  folderUser     User     @relation(fields: [folderUserId], references: [id]) //each folder will have a unique user id to show folder ownership
+  folderUser     User      @relation(fields: [folderUserId], references: [id]) //each folder will have a unique user id to show folder ownership
   folderUserId   Int //foreign key for relation (references id from User table)
   files          File[] //folders can have many files
-  parentFolderId Int?      //foreign key, references Folders id
-  parentFolder   Folders? @relation("parentFolderRelation", fields: [parentFolderId], references: [id])
+  parentFolderId Int? //foreign key, references Folders id
+  parentFolder   Folders?  @relation("parentFolderRelation", fields: [parentFolderId], references: [id])
   subFolders     Folders[] @relation("parentFolderRelation")
 }
 

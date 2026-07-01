@@ -34,3 +34,14 @@
     color: white;
     border: 2px white dotted;
 }
+
+.file-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.file-group > a {
+    background-color: orange;
+    max-width: 50%;
+}

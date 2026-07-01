@@ -1,0 +1,12 @@
+
+.info-title {
+    text-decoration: underline;
+}
+
+.file-info-group {
+    color: white;
+    background: black;
+    padding: 20px;
+    border: 10px grey;
+    border-style: dashed double;
+}
