@@ -91,3 +91,5 @@
         - added self relation for parent folder id, self-relationship in schema. Also re-generated prisma client
 
 - Need to add functionality to upload file here based on current directory, and list the files out. For now, I am only storing the location of the file from my local directory to the postgres database.
+
+- Need to add a download button and allow users to download the file based on route location.
