@@ -9,13 +9,13 @@
 <body>
     <h1>Upload a file here!</h1>
     <h3>Only authenticated users</h3>
-    <form action="" method="post" enctype="multipart/form-data">
+    <form action="/upload/<%= currentRoute %>" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="uploadFile">Upload File Here: </label>
             <input type="file" name="uploadFile" id="uploadFile">
             <button type="submit">Submit</button>
         </div>
     </form>
-    <a href="/" class="home-link">Back to home</a>
+    <a href="/folder/<%= currentRoute %>" class="home-link">Cancel Upload</a>
 </body>
 </html>

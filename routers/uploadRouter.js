@@ -3,8 +3,8 @@ const uploadController = require("../controllers/uploadController");
 
 const uploadRouter = Router();
 
-uploadRouter.get("/", uploadController.renderUploadForm);
+uploadRouter.get("/{*filepath}", uploadController.renderUploadForm);
 
-uploadRouter.post("/", uploadController.postFileForm);
+uploadRouter.post("/{*filepath}", uploadController.postFileForm);
 
 module.exports = uploadRouter;

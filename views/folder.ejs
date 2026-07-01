@@ -11,8 +11,9 @@
     <h4>Current Filepath: <%= currentRoute %></h4>
     <h1>Options:</h1>
     <div class="link-group">
-        <a href="/folder/<%= previousRoute %>">Back to previous folder</a>
         <a href="/create/<%= currentRoute %>">Create a folder here</a>
+        <a href="/upload/<%= currentRoute %>">Upload a file here</a>
+        <a href="/folder/<%= previousRoute %>">Back to previous folder</a>
         <a href="/">Back to home</a>
     </div>
     <h1>Files: </h1>

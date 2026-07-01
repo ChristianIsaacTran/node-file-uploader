@@ -319,6 +319,31 @@ async function updateFolderName(
   return console.log("update folder complete.");
 }
 
+// create an upload record in postgreSQL database
+async function createUpload(fileData, currentRoute, loggedInUserId) {
+  try {
+    // get current folder from currentRoute so pass id to File model
+    const currentFolder = await getFolder(currentRoute, loggedInUserId);
+
+    // construct file location in local filesystem for now
+    console.log(fileData);
+    const filePath = fileData.path;
+
+    // create new File record in file model
+    await prisma.file.create({
+      data: {
+        fileLocation: filePath,
+        fileFolderId: currentFolder.id
+      },
+    });
+
+    return console.log("File path added to db");
+    
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
 module.exports = {
   getUser,
   getUserForDeserialize,
@@ -330,4 +355,5 @@ module.exports = {
   getSubFolders,
   deleteFolder,
   updateFolderName,
+  createUpload,
 };
