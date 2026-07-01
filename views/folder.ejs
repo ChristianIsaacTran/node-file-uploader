@@ -22,8 +22,11 @@
    <% } else { %>
         <div class="file-group">
         <% files.forEach((file) => { %>
-            <a href="/view/<%= currentRoute%>?fileId=<%= file.id %>"><%= file.fileName %></a>
-        <% }) %>
+            <div class="file-link-group">
+                <a href="/view/<%= currentRoute%>?fileId=<%= file.id %>" class="file-details-link"><%= file.fileName %></a>
+                <a href="/download?fileId=<%= file.id %>" class="download-link">download ⤓</a>
+            </div>
+            <% }) %>
         </div>
     <% } %>
     <h1>Sub-folders: </h1>
