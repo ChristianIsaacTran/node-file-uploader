@@ -93,3 +93,9 @@
 - Need to add functionality to upload file here based on current directory, and list the files out. For now, I am only storing the location of the file from my local directory to the postgres database.
 
 - Need to add a download button and allow users to download the file based on route location.
+
+- Now that all of the CRUD applications and upload logic is made, the guide says to use a cloud storage to store and serve the actual files themselves while also storing their URI links in the database itself.
+
+- I plan to use Supabase which is a full backend service that offer a lot of things, including a postgreSQL database AND a cloud file storage. I need to rework my code to work with supabase instead of a raw postgreSQL database on railway.
+
+- Project will still be hosted on railway, but connect and use the supabase database and storage through the supabase JS library and connection string that supabase provides. Password to the database needs to be re-generated if I forgot the database password and didn't save it anywhere.
